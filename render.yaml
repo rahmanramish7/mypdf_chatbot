@@ -1,0 +1,21 @@
+services:
+  - type: web
+    name: pdf-chatbot-groq
+    env: docker
+    plan: free
+    healthCheckPath: /
+    envVars:
+      - key: GROQ_API_KEY
+        sync: false
+      - key: GROQ_MODEL
+        value: llama-3.1-8b-instant
+      - key: EMBEDDING_MODEL
+        value: sentence-transformers/all-MiniLM-L6-v2
+      - key: INDEX_DIR
+        value: /tmp/vectorstore
+      - key: UPLOAD_DIR
+        value: /tmp/uploads
+      - key: TOP_K
+        value: "6"
+      - key: RETRIEVE_K
+        value: "20"
