@@ -11,12 +11,14 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 ENV PIP_NO_CACHE_DIR=1 \
     PIP_DISABLE_PIP_VERSION_CHECK=1
 
+# where to cache HF/SBERT models at runtime
+ENV SENTENCE_TRANSFORMERS_HOME=/app/.cache/sentence_transformers
+
 COPY requirements.txt /app/requirements.txt
 RUN pip install -r /app/requirements.txt
 
-# (Optional) Pre-cache the embedding model to speed up first request.
-# Comment this out if you want the fastest builds instead.
-RUN python -c "from sentence_transformers import SentenceTransformer as S; S('all-MiniLM-L6-v2')"
+# ❌ removed the line that downloads the model during build
+# RUN python -c "from sentence_transformers import SentenceTransformer as S; S('all-MiniLM-L6-v2')"
 
 COPY streamlit_app.py /app/streamlit_app.py
 
