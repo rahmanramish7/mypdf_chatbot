@@ -1,5 +1,8 @@
-**/__pycache__/
+.git
+__pycache__/
 *.pyc
-.venv/
-.env
+.cache/
+.huggingface/
+*.ipynb
 data/
+.env
